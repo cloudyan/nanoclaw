@@ -18,6 +18,7 @@ import pino from 'pino';
 import qrcode from 'qrcode-terminal';
 import fs from 'fs';
 import path from 'path';
+import { createProxyAgent } from './proxy.js';
 
 const AUTH_DIR = './store/auth';
 
@@ -46,6 +47,7 @@ async function authenticate(): Promise<void> {
     printQRInTerminal: false,
     logger,
     browser: ['NanoClaw', 'Chrome', '1.0.0'],
+    agent: createProxyAgent()
   });
 
   sock.ev.on('connection.update', (update) => {

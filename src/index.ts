@@ -11,6 +11,7 @@ import pino from 'pino';
 import { exec, execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { createProxyAgent } from './proxy.js';
 
 import {
   ASSISTANT_NAME,
@@ -493,7 +494,8 @@ async function connectWhatsApp(): Promise<void> {
     auth: { creds: state.creds, keys: makeCacheableSignalKeyStore(state.keys, logger) },
     printQRInTerminal: false,
     logger,
-    browser: ['NanoClaw', 'Chrome', '1.0.0']
+    browser: ['NanoClaw', 'Chrome', '1.0.0'],
+    agent: createProxyAgent()
   });
 
   sock.ev.on('connection.update', (update) => {
