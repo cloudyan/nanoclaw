@@ -5,6 +5,8 @@
  * Displays QR code, waits for scan, saves credentials, then exits.
  *
  * Usage: npx tsx src/whatsapp-auth.ts
+ *
+ * WhatsApp 认证脚本 - 显示 QR 码供用户扫描认证
  */
 
 import makeWASocket, {

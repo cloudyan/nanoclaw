@@ -1,6 +1,8 @@
 /**
  * Container Runner for NanoClaw
  * Spawns agent execution in Apple Container and handles IPC
+ *
+ * NanoClaw 容器运行器 - 在容器中启动代理并处理 IPC
  */
 
 import { spawn } from 'child_process';
@@ -24,6 +26,7 @@ const logger = pino({
 });
 
 // Sentinel markers for robust output parsing (must match agent-runner)
+// 输出解析标记，用于从容器输出中提取 JSON 结果
 const OUTPUT_START_MARKER = '---NANOCLAW_OUTPUT_START---';
 const OUTPUT_END_MARKER = '---NANOCLAW_OUTPUT_END---';
 
@@ -160,6 +163,7 @@ function buildContainerArgs(mounts: VolumeMount[]): string[] {
   const args: string[] = ['run', '-i', '--rm'];
 
   // Apple Container: --mount for readonly, -v for read-write
+  // Apple Container 使用 --mount 挂载只读目录，-v 挂载读写目录
   for (const mount of mounts) {
     if (mount.readonly) {
       args.push('--mount', `type=bind,source=${mount.hostPath},target=${mount.containerPath},readonly`);
@@ -173,6 +177,7 @@ function buildContainerArgs(mounts: VolumeMount[]): string[] {
   return args;
 }
 
+// 在容器中运行代理，处理输入/输出和超时
 export async function runContainerAgent(
   group: RegisteredGroup,
   input: ContainerInput
@@ -418,6 +423,9 @@ export interface AvailableGroup {
  * Write available groups snapshot for the container to read.
  * Only main group can see all available groups (for activation).
  * Non-main groups only see their own registration status.
+ *
+ * 写入可用组快照供容器读取
+ * 只有主组可以看到所有可用组（用于激活其他组）
  */
 export function writeGroupsSnapshot(
   groupFolder: string,

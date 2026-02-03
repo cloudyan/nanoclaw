@@ -5,6 +5,9 @@
  * This prevents container agents from modifying security configuration.
  *
  * Allowlist location: ~/.config/nanoclaw/mount-allowlist.json
+ *
+ * 挂载安全模块 - 根据外部允许列表验证额外挂载
+ * 允许列表存储在项目外，防止容器代理修改安全配置
  */
 
 import fs from 'fs';

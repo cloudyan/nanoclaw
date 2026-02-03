@@ -9,6 +9,7 @@ const PROJECT_ROOT = process.cwd();
 const HOME_DIR = process.env.HOME || '/Users/user';
 
 // Mount security: allowlist stored OUTSIDE project root, never mounted into containers
+// 挂载安全：允许列表存储在项目根目录外，从不挂载到容器中，防止容器篡改
 export const MOUNT_ALLOWLIST_PATH = path.join(HOME_DIR, '.config', 'nanoclaw', 'mount-allowlist.json');
 export const STORE_DIR = path.resolve(PROJECT_ROOT, 'store');
 export const GROUPS_DIR = path.resolve(PROJECT_ROOT, 'groups');

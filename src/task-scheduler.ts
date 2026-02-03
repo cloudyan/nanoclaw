@@ -1,3 +1,4 @@
+// 任务调度器 - 管理和执行计划任务
 import fs from 'fs';
 import path from 'path';
 import pino from 'pino';
@@ -42,6 +43,7 @@ async function runTask(task: ScheduledTask, deps: SchedulerDependencies): Promis
   }
 
   // Update tasks snapshot for container to read (filtered by group)
+  // 更新任务快照供容器读取（按组过滤）
   const isMain = task.group_folder === MAIN_GROUP_FOLDER;
   const tasks = getAllTasks();
   writeTasksSnapshot(task.group_folder, isMain, tasks.map(t => ({
@@ -58,6 +60,7 @@ async function runTask(task: ScheduledTask, deps: SchedulerDependencies): Promis
   let error: string | null = null;
 
   // For group context mode, use the group's current session
+  // 组上下文模式使用该组的当前会话
   const sessions = deps.getSessions();
   const sessionId = task.context_mode === 'group' ? sessions[task.group_folder] : undefined;
 

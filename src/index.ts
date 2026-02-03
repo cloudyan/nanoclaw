@@ -1,3 +1,6 @@
+// NanoClaw 主入口 - WhatsApp 连接和消息路由
+
+// 与 WhatsApp 通信的桥梁
 import makeWASocket, {
   useMultiFileAuthState,
   DisconnectReason,
@@ -76,6 +79,8 @@ function registerGroup(jid: string, group: RegisteredGroup): void {
  * Sync group metadata from WhatsApp.
  * Fetches all participating groups and stores their names in the database.
  * Called on startup, daily, and on-demand via IPC.
+ *
+ * 从 WhatsApp 同步组元数据
  */
 async function syncGroupMetadata(force = false): Promise<void> {
   // Check if we need to sync (skip if synced recently, unless forced)
@@ -113,6 +118,8 @@ async function syncGroupMetadata(force = false): Promise<void> {
 /**
  * Get available groups list for the agent.
  * Returns groups ordered by most recent activity.
+ *
+ * 获取可用组列表
  */
 function getAvailableGroups(): AvailableGroup[] {
   const chats = getAllChats();
@@ -136,6 +143,7 @@ async function processMessage(msg: NewMessage): Promise<void> {
   const isMainGroup = group.folder === MAIN_GROUP_FOLDER;
 
   // Main group responds to all messages; other groups require trigger prefix
+  // 主组响应所有消息，其他组需要触发前缀
   if (!isMainGroup && !TRIGGER_PATTERN.test(content)) return;
 
   // Get all messages since last agent interaction so the session has full context
@@ -228,6 +236,7 @@ function startIpcWatcher(): void {
 
   const processIpcFiles = async () => {
     // Scan all group IPC directories (identity determined by directory)
+    // 扫描所有组的 IPC 目录，通过目录路径确定发送者身份
     let groupFolders: string[];
     try {
       groupFolders = fs.readdirSync(ipcBaseDir).filter(f => {
@@ -335,6 +344,7 @@ async function processTaskIpc(
     case 'schedule_task':
       if (data.prompt && data.schedule_type && data.schedule_value && data.groupFolder) {
         // Authorization: non-main groups can only schedule for themselves
+        // 授权检查：非主组只能为自己创建任务
         const targetGroup = data.groupFolder;
         if (!isMain && targetGroup !== sourceGroup) {
           logger.warn({ sourceGroup, targetGroup }, 'Unauthorized schedule_task attempt blocked');
@@ -450,6 +460,7 @@ async function processTaskIpc(
 
     case 'register_group':
       // Only main group can register new groups
+      // 只有主组可以注册新组
       if (!isMain) {
         logger.warn({ sourceGroup }, 'Unauthorized register_group attempt blocked');
         break;
@@ -536,9 +547,11 @@ async function connectWhatsApp(): Promise<void> {
       const timestamp = new Date(Number(msg.messageTimestamp) * 1000).toISOString();
 
       // Always store chat metadata for group discovery
+      // 始终存储聊天元数据用于组发现
       storeChatMetadata(chatJid, timestamp);
 
       // Only store full message content for registered groups
+      // 仅对已注册组存储完整消息内容
       if (registeredGroups[chatJid]) {
         storeMessage(msg, chatJid, msg.key.fromMe || false, msg.pushName || undefined);
       }

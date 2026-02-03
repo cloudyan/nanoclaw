@@ -8,6 +8,8 @@ export interface AdditionalMount {
  * Mount Allowlist - Security configuration for additional mounts
  * This file should be stored at ~/.config/nanoclaw/mount-allowlist.json
  * and is NOT mounted into any container, making it tamper-proof from agents.
+ *
+ * 挂载允许列表 - 安全配置文件，不挂载到容器中，防止代理篡改
  */
 export interface MountAllowlist {
   // Directories that can be mounted into containers
@@ -61,7 +63,7 @@ export interface ScheduledTask {
   prompt: string;
   schedule_type: 'cron' | 'interval' | 'once';
   schedule_value: string;
-  context_mode: 'group' | 'isolated';
+  context_mode: 'group' | 'isolated'; // 上下文模式
   next_run: string | null;
   last_run: string | null;
   last_result: string | null;
