@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>NanoClaw 源码文档</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="NanoClaw 源码解读文档">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: 'NanoClaw 源码文档',
+      repo: 'https://github.com/gavrielc/nanoclaw',
+      homepage: 'README.md',
+      loadSidebar: true,
+      subMaxLevel: 4,
+      autoHeader: true,
+      maxLevel: 4,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索文档...',
+        noData: '没有找到结果',
+        depth: 6,
+        hideOtherSidebarContent: false,
+        namespace: 'nanoclaw-docs'
+      },
+      copyCode: {
+        buttonText: '复制',
+        errorText: '错误',
+        successText: '已复制'
+      },
+      pagination: {
+        previousText: '上一章',
+        nextText: '下一章',
+        crossChapter: true,
+        crossChapterText: {
+          prev: '上一篇',
+          next: '下一篇'
+        }
+      }
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- 搜索插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <!-- 复制代码插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <!-- 分页插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <!-- Mermaid 图表支持 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <!-- 代码高亮 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+</body>
+</html>

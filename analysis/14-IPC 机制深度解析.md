@@ -223,9 +223,9 @@ function startIpcWatcher(): void {
 sequenceDiagram
     participant User as 用户
     participant WA as WhatsApp
-    participant Host as Host 进程<br/>(src/index.ts)
-    participant FS as 文件系统<br/>(data/ipc/)
-    participant Container as Container<br/>(Claude Agent SDK)
+    participant Host as Host 进程 (src/index.ts)
+    participant FS as 文件系统 (data/ipc/)
+    participant Container as Container (Claude Agent SDK)
     participant MCP as IPC MCP 工具
 
     Note over User, MCP: Host → Container：用户消息处理

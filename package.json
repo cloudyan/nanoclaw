@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
+    "docs": "docsify serve ./analysis",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
