@@ -8,16 +8,17 @@
  *
  * WhatsApp 认证脚本 - 显示 QR 码供用户扫描认证
  */
-
-import makeWASocket, {
-  useMultiFileAuthState,
-  DisconnectReason,
-  makeCacheableSignalKeyStore,
-} from '@whiskeysockets/baileys';
-import pino from 'pino';
-import qrcode from 'qrcode-terminal';
 import fs from 'fs';
 import path from 'path';
+import pino from 'pino';
+import qrcode from 'qrcode-terminal';
+
+import makeWASocket, {
+  DisconnectReason,
+  makeCacheableSignalKeyStore,
+  useMultiFileAuthState,
+} from '@whiskeysockets/baileys';
+
 import { createProxyAgent } from './proxy.js';
 
 const AUTH_DIR = './store/auth';
@@ -33,7 +34,9 @@ async function authenticate(): Promise<void> {
 
   if (state.creds.registered) {
     console.log('✓ Already authenticated with WhatsApp');
-    console.log('  To re-authenticate, delete the store/auth folder and run again.');
+    console.log(
+      '  To re-authenticate, delete the store/auth folder and run again.',
+    );
     process.exit(0);
   }
 
